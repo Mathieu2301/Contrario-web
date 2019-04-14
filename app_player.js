@@ -12,4 +12,6 @@ module.exports = function(socket, name){
         console.log(this.player)
     }
 
+    this.socket.on("set_name", this.setName)
+
 }
