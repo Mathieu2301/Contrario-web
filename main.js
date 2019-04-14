@@ -6,25 +6,18 @@ var port = process.env.PORT || 7621;
 
 var game = new (require('events')).EventEmitter().setMaxListeners(0);
 
-var r = require('rethinkdb')
-r.connect(require("B:\\DB1\\connect.json"), function(err, conn) {
-    conn.use("CONTRARIO");
-
-    r.tableCreate('tv_shows').run(conn, function(err, res) {
-        console.log(res || err.message);
-
-        r.table('tv_shows').insert({ name: 'Star Trek TNG' }).run(conn, function(err, res){
-            console.log(res || err.message);
-        });
-
-    });
-});
-
 var routes = require("./app_routes.js")(app);
 log("WebServer: --------- OK");
 var push = new (require("./app_push.js"))(log);
-log("WebServer: --------- OK");
+log("Push: -------------- OK");
+var cards = new (require("./app_cards.js"))(log);
+log("Cards: ------------- OK");
 
+setInterval(function(){
+    cards.backup("hourly", function(err){
+        if (err) console.error("/!\\ ERREUR LORS DE LA BACKUP /!\\")
+    });   
+}, 1000*60*60);
 
 var Player = require("./app_player.js");
 var players = [];
@@ -35,9 +28,9 @@ io.on("connection", function(client){
         var player = new Player(client, name);
         players.push(player);
 
-        client.on("subscribe_push", push.addPushToken);
+        client.on("create_game", function(){
 
-        client.on("set_name", player.setName)
+        })
     
         client.on("disconnect", function(){
             players = players.filter(v=>{return v.socket.id!=client.id});
@@ -45,15 +38,6 @@ io.on("connection", function(client){
 
     })
 })
-
-setInterval(function(){
-
-    // players.filter(v=>{return v.player.roomID==roomID}).forEach(function(val){
-
-    // });
-
-}, 1000);
-
 
 function fn(fn, ...a){return function(){fn(...a)}};
 Array.prototype.remove=function(remove){return this.filter(val=>{if(val!=remove)return val})}
