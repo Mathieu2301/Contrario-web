@@ -1,0 +1,28 @@
+{
+  "name": "contrario-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mathieu2301/contrario-web.git"
+  },
+  "keywords": [
+    "contrario"
+  ],
+  "author": "Mathieu Colmon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mathieu2301/contrario-web/issues"
+  },
+  "homepage": "https://github.com/Mathieu2301/contrario-web#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "firebase-admin": "^7.2.0",
+    "rethinkdb": "^2.3.3",
+    "socket.io": "^2.2.0"
+  }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport">
+    <meta name="theme-color" content="#009FA2">
+    <meta name="msapplication-navbutton-color" content="#009FA2">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#009FA2">
+
+    <title>Contrario Web</title>
+
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="manifest" href="./manifest.json">
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/scrollbar.css">
+    <link rel="stylesheet" href="./css/variables.css">
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase-messaging.js"></script>
+
+</head>
+<body>
+    <button id="a2hs_btn">Ajouter au bureau</button>
+
+    <div class="body" style="display:none">
+        <div id="lobby_page" class="page" v-if="!ingame">
+
+        </div>
+
+        <div id="game_page" class="page" v-if="ingame">
+            
+        </div>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/socket.io.js"></script>
+    <script src="./js/index.js"></script>
+
+    <script>      
+        let p;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            p = e;
+            $('#a2hs_btn').show();
+            $('#a2hs_btn').on('click', () => {
+                $('#a2hs_btn').hide();
+                p.prompt();
+            });
+        }); 
+    </script>
+  
+
+</body>
+</html>
