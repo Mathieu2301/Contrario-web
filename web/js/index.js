@@ -46,10 +46,17 @@ $(function () {
 
     var socket = io();
 
-    socket.once("connect", function(){
+    
+
+    $("#lobby_page>#new").on("click", function(){
+        socket.emit("create_party");
+    })
+
+    socket.on("connect", function(){
         $(".body").fadeIn();
 
         socket.once("initialize", initialize);
+        
         
     });
 

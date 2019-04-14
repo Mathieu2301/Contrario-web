@@ -1,17 +1,19 @@
-module.exports = function(socket, name){
-    this.socket = socket;
-    this.player = {
-        socketUID: socket.id,
-        name: name,
-        roomID: 0,
-        searching: false,
+module.exports = function(socket, name, ID){
+
+    var _this = {
+        ID,socket,
+        player: {
+            name: name,
+            socketUID: socket.id
+        },
+
+        setName: function(name){
+            _this.player.name = name;
+            console.log("Name changed to : " + name);
+        }
     }
 
-    this.setName = function(name){
-        this.player.name = name;
-        console.log(this.player)
-    }
+    _this.socket.on("set_name", _this.setName)
 
-    this.socket.on("set_name", this.setName)
-
+    return _this;
 }
